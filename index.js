@@ -7,7 +7,7 @@ var db_config = {
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'shopee'
+    database: 'database_vue'
 };
 
 var connection;
@@ -56,9 +56,9 @@ app.get("/getData", function(req, res) {
             console.log('Error while performing Query.');
     });
 });
-app.get("/insertf", function(req, res) {
+app.get("/insertData", function(req, res) {
     console.log(req.query)
-    connection.query('insert into users (fname,lname,phone,email,password) values("' + req.query.fName + '","' + req.query.lName + '","' + req.query.Phone + '","' + req.query.Email + '","' + req.query.Password + '")', function(err, result) {
+    connection.query('insert into users (fname,lname,email,password,phone) values("' + req.query.fName + '","' + req.query.lName + '","' + req.query.Email + '","' + req.query.Password + '","' + req.query.Phone + '")', function(err, result) {
         if (!err) {
             if (result.affectedRows) {
                 res.json({ status: "Success" })
@@ -68,8 +68,8 @@ app.get("/insertf", function(req, res) {
         }
     });
 });
-app.get("/login", function(req, res) {
-    connection.query('SELECT * from users where email = "' + req.query.username + '" and password = "' + req.query.password + '"',
+app.get("/Datalogin", function(req, res) {
+    connection.query('SELECT * from users where email = "' + req.query.Email + '" and password = "' + req.query.Password + '"',
         function(err, rows, fields) {
             if (!err) {
                 var data = {
@@ -87,5 +87,6 @@ app.get("/", function(req, res) {
     res.json("test");
 });
 app.listen(7777);
+console.log("SERVER RUN SUCCESSFULLY")
 
 // connection.end();
